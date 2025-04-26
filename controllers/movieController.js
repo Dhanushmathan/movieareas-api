@@ -3,7 +3,10 @@ export const MovieIndex = (req, res) => {
 };
 
 export const MovieCreate = (req, res) => {
-    res.send('Create a new movie');
+    console.log(req.body);
+
+    return res.json(req.body);
+
 };
 
 export const MovieUpdate = (req, res) => {
@@ -12,4 +15,9 @@ export const MovieUpdate = (req, res) => {
 
 export const MovieDelete = (req, res) => {
     res.send(`Delete movie with ID: ${req.params.id}`);
+};
+
+const movieDetails = {
+    title: 'Christopher Nolan',
+    desc: 'Inception'
 };
