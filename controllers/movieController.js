@@ -55,29 +55,14 @@ export const MovieUpdate = async (req, res) => {
     }
 };
 
-export const MovieDelete = (req, res) => {
-    res.send(`Delete movie with ID: ${req.params.id}`);
-};
-
-export const movieDetails = [
-    {
-        title: 'Inception',
-        desc: 'A mind-bending thriller by Christopher Nolan about dreams within dreams.'
-    },
-    {
-        title: 'The Matrix',
-        desc: 'A hacker discovers the reality he lives in is a simulated reality.'
-    },
-    {
-        title: 'Interstellar',
-        desc: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.'
-    },
-    {
-        title: 'The Dark Knight',
-        desc: 'Batman faces the Joker, a criminal mastermind who wants to plunge Gotham City into anarchy.'
-    },
-    {
-        title: 'Pulp Fiction',
-        desc: 'The lives of two mob hitmen, a boxer, a gangster\'s wife, and a pair of diner bandits intertwine in four tales of violence and redemption.'
+export const MovieDelete = async (req, res) => {
+    try {
+        const deletedMovie = await MovieModel.findByIdAndDelete({ _id: req.params.id });
+        if (!deletedMovie) {
+            return res.status(404).json({ message: "Cannot find movie" });
+        }
+        return res.json({ message: "Movie deleted successfully" });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
     }
-];
+};
